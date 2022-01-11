@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+        h2 {
+            color: white;
+        }
+        .navbar {
+
+        }
+	</style>
+
+	<div class="container border">
+	<div class="row border">
+			<div class="col ">
+				 <a href="/">На главную</a>
+			</div>
+			<div class=" border col-9">
+				<hr>
+				<h5 class = "text-center">{{post.title}}</h5>
+				<hr>
+				<p>{{post.content}}</p>
+				<p class="float-end">Дата публикации: <b>{{post.createdAt}}</b></p>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

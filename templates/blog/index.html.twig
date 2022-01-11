@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+        h2 {
+            color: white;
+        }
+        .navbar {
+
+        }
+        .btn-success {
+           margin-top:8px;
+        }
+        /* .col-9 {
+            border-left: 3px solid;
+        } */
+        .post{
+            padding:20px 10px;
+            border: 1px solid black;
+        }
+        .row {
+            border:1px solid black;
+        }
+	</style>
+
+	<div class="container">
+	<div class="row">
+			<div class="col">
+                <button type="button" class="btn-sm btn btn-success">Добавить пост</button>
+			</div>
+			<div class="col-9">
+				{% for post in posts %}
+                <div class = "row post">
+					<li>
+						<a href = "{{post.id}}">{{post.title}}</a>
+					</li>
+                </div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+    
+
+{% endblock %}
