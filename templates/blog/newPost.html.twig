@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="container border">
+	<div class="row border">
+			<div class="col ">
+				 <a href="/">На главную</a>
+			</div>
+			<div class=" border col-9">
+			<form action= {{path('createPost')}} method="post">
+				<div class="form-group">
+					<label for="title">Заголовок</label>
+					<input type="text" class="form-control" name="title" placeholder="Введите заголовок">
+				</div>
+				<div class="form-group">
+					<label for="content">Текст поста</label>
+					<textarea class="form-control" name="content" placeholder="Введите текст"></textarea>
+					<hr>
+				</div>
+
+
+				<button type="submit" class="btn btn-primary">Опубликовать</button>
+				<hr>
+			</form>	
+				</div>
+		</div>
+	</div>
+{% endblock %}
