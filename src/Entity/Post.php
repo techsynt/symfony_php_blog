@@ -51,7 +51,7 @@ class Post
 
     public function getCreatedAt()
     {
-        return $this->created_at->format('d-m-Y - H:i:s');
+        return $this->created_at;
     }
 
     public function setCreatedAt(\DateTimeImmutable $created_at): self
