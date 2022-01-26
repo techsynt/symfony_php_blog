@@ -32,7 +32,16 @@
                 <li>{{comment.text}}</li>
             {% endfor %}
         </ul>
+        {% if previous >= 0 %}
+            <a href="{{ path('post_show', { id: post.id, offset: previous }) }}">Previous 5 Comments</a>
+        {% endif %}
+        {% if next < comments|length %}
+            <a href="{{ path('post_show', { id:post.id, offset: next }) }}">Next 5 Comments</a>
+        {% endif %}
+
     </div>
+    <hr>
+    <p>Add comments:</p>
     {{ form_start(form) }}
     {{ form_widget(form) }}
         <button class="btn btn-info">{{ button_label|default('Save') }}</button>

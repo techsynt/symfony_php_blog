@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\CommentType;
 use App\Form\PostType;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,9 +55,10 @@ class PostController extends AbstractController
     /**
      * @Route("/show/{id}", name="post_show", methods={"GET", "POST"})
      */
-    public function show(Post $post , Request $request): Response
+    public function show(Post $post , Request $request, CommentRepository $commentRepository): Response
     {
-
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $commentRepository->getCommentPaginator($post, $offset);
         $form = $this->createForm(CommentType::class);
         $comments = $post->getComments();
        $form->handleRequest($request);
@@ -72,7 +74,10 @@ class PostController extends AbstractController
         return $this->renderForm('post/show.html.twig', [
             'form' => $form,
             'post' => $post,
-            'comments' => $comments,
+//            'comments' => $comments,
+            'comments' => $paginator,
+            'previous' => $offset - CommentRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + CommentRepository::PAGINATOR_PER_PAGE),
         ]);
     }
 
