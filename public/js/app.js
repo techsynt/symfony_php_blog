@@ -1,4 +1,4 @@
-$('.btn').on("click", function () {
+$('.btn-outline-success').on("click", function () {
     $.ajax({
         url: '/number',
         method: 'POST'

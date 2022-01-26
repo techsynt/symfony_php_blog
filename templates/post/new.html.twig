@@ -4,8 +4,7 @@
 
 {% block body %}
     <h1>Create new Post</h1>
-
+    <a href="{{ path('post_index') }}"><button type="button" class="btn btn-success">back to list</button></a>
     {{ include('post/_form.html.twig') }}
 
-    <a href="{{ path('post_index') }}">back to list</a>
 {% endblock %}

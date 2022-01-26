@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class WizardNumber extends AbstractController
 {
     /**
-     * @Route("/number", methods="POST)
+     * @Route("/number")
      */
     public function getNumber(LoggerInterface $logger): \Symfony\Component\HttpFoundation\JsonResponse
     {

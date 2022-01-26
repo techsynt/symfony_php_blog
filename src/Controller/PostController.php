@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Psr\Log\LoggerInterface;
@@ -50,14 +52,27 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="post_show", methods={"GET"})
+     * @Route("/show/{id}", name="post_show", methods={"GET", "POST"})
      */
-    public function show(Post $post  , Request $request, LoggerInterface $logger): Response
+    public function show(Post $post , Request $request): Response
     {
-//        dd($request->attributes->get('post'));
-//        $logger->info('hi there');
-        return $this->render('post/show.html.twig', [
+
+        $form = $this->createForm(CommentType::class);
+        $comments = $post->getComments();
+       $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $comment = new Comment();
+            $comment = $form->getData();
+            $comment->setPost($post);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            return $this->redirectToRoute('post_show', ["id" => $post->getId()] );
+        }
+        return $this->renderForm('post/show.html.twig', [
+            'form' => $form,
             'post' => $post,
+            'comments' => $comments,
         ]);
     }
 
