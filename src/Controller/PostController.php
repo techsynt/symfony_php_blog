@@ -60,10 +60,8 @@ class PostController extends AbstractController
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $commentRepository->getCommentPaginator($post, $offset);
         $form = $this->createForm(CommentType::class);
-        $comments = $post->getComments();
        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            $comment = new Comment();
             $comment = $form->getData();
             $comment->setPost($post);
             $entityManager = $this->getDoctrine()->getManager();
@@ -74,7 +72,6 @@ class PostController extends AbstractController
         return $this->renderForm('post/show.html.twig', [
             'form' => $form,
             'post' => $post,
-//            'comments' => $comments,
             'comments' => $paginator,
             'previous' => $offset - CommentRepository::PAGINATOR_PER_PAGE,
             'next' => min(count($paginator), $offset + CommentRepository::PAGINATOR_PER_PAGE),
